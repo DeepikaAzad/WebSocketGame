@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="homeApp">
+
+<head>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+      <script type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.js"></script>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width-device-width, inital-scale-1.0">
+      <title>Socket thing</title>
+</head>
+
+<body>
+      <div ng-controller="MyController" class="my-controller" ng-init="initPage()">
+            <button data-ng-click=startPlay() style="margin-bottom:13px">Start</button>
+            <div id="timer">Timer : </div>
+            <h2 id="randomValue" data-ng-model="randomValue" oncopy="return false;">{{randomValue}}</h2>
+            Enter given string: <input type="text" onpaste="return false;" name="randomValue" ng-model="userInput"
+                  ng-model-options='{ debounce: 1000 }' ng-disabled="disableBtn">
+            <div class="temp">Remaining chance left: </div>
+            <div class="temp" id="unattemptCount"></div>
+            <p data-ng-model="score">Score : {{score}}</p>
+            <p style="color: green;" ng-show="win">YOU WON</p>
+            <p style="color: gray;" ng-show="disableBtn">End Game !!!</p>
+      </div>
+</body>
+<script src="js/client.js"></script>
+<style>
+      .temp {
+            margin-left: 20px;
+            display: inline-block
+
+      }
+</style>
+
+</html>
