@@ -70,7 +70,7 @@ function MyController($scope, $interval) {
             }
             $scope.endGame();
       }
-
+      showUnattemptedCount.innerHTML = 3
       // Calculate continuous 3 attempt missed.
       $scope.calculateUnattemptCount = () => {
             if ($scope.userInput.length == 0) {
