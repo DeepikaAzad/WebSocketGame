@@ -51,11 +51,14 @@ function MyController($scope, $interval) {
       // Check if given string not matched
       const matchUserInput = () => {
             count++;
-            $scope.calculateUnattemptCount();
             socket.send(count);
-            if($scope.userInput.length != 0) {
+            if ($scope.userInput.length != 0) {
+                  unattemptCount = 0;
+                  showUnattemptedCount.innerHTML = 3
                   $scope.calculateScore($scope.userInput)
                   $scope.userInput = '';
+            } else if (count > 1) {
+                  $scope.calculateUnattemptCount();
             }
       }
 
@@ -70,18 +73,15 @@ function MyController($scope, $interval) {
             }
             $scope.endGame();
       }
+
       showUnattemptedCount.innerHTML = 3
       // Calculate continuous 3 attempt missed.
       $scope.calculateUnattemptCount = () => {
-            if ($scope.userInput.length == 0) {
-                  unattemptCount++;
-                  showUnattemptedCount.innerHTML = 3 - unattemptCount;
-                  if (unattemptCount == 3) {
-                        console.log("Unattempt count " + unattemptCount);
-                        $scope.endGame();
-                  }
-            } else {
-                  unattemptCount = 0;
+            unattemptCount++;
+            showUnattemptedCount.innerHTML = 3 - unattemptCount;
+            if (unattemptCount == 3) {
+                  console.log("Unattempt count " + unattemptCount);
+                  $scope.endGame();
             }
       }
 
@@ -89,6 +89,8 @@ function MyController($scope, $interval) {
       const countdown = () => {
             if (timeLeft == -1) {
                   $interval.cancel(timerId);
+                  timerId = $interval(countdown, 1000);
+                  timeLeft = intervalTime / 1000 - 2;
             } else {
                   timerCount.innerHTML = timeLeft + ' seconds remaining';
                   timeLeft--;
